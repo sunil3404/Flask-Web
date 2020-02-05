@@ -1,0 +1,57 @@
+{% extends "public/templates/public_template.html" %}
+
+{% block title %} Guestbook {% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1> GuestBook</h1>
+            <hr>
+            <form action="/guestbook" method="POST">
+                <div class = "form-group">
+                    <lable>Name</lable>
+                    <input class="form-control" id="input_name" type="text" name="name"/>
+                </div>
+                <div class = "form-group">
+                    <lable>Message</lable>
+                    <textarea class="form-control" id="message" type="textarea" name="name" cols="30" rows="10"></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit" onclick="submit_entry()">Post</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function submit_entry(){
+            var name = document.getElementById("input_name");
+            var message = document.getElementById("message");
+            var entry = {
+                name: name.value,
+                message: message.value
+            };
+
+            fetch(`${window.origin}/guestbook/create-entry`, {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify(entry),
+                cache:"no-cache",
+                headers: new Headers({
+                "content-type": "application/json"
+                })
+            })
+            .then(function(response){
+                if (response.status !== 200){
+                    console.log("Reponse.status was not 200: ${response.status}");
+                    return ;
+                }
+                response.json().then(function(data){
+                       console.log(data);
+                })
+            })
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'public/templates/public_template.html' %}
+
+
+{% block title %} Tasks {% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1> TASKS </h1>
+            <hr>
+            
+            <br>
+            <form action="{{ url_for('tasks') }}" method='POST'>
+                <div class='form-group'>
+                    <label>URL</label>
+                    <input class=form-control  name="url" placeholder="enter url"/>
+                </div>
+                <span><button class="btn btn-primary">Get Text</button></span>
+            </form>
+            <br>
+            <br>
+            <div class="card">
+                <div class="card-title"><strong><h2 style="margin-left:20px; margin-top:10px;">Text Details</h2></strong></div>
+                <hr style="margin-left:20px">
+                    <div class="card-body">
+                        <p>{{ message }}</p>
+                    </div>
+            </div>
+            <br>
+            <br>
+            <div class="card">
+                {% if jobs %}
+                {% for job in jobs %}
+                <div class="card-title"><strong><h2 style="margin-left:20px; margin-top:10px;">Job Details</h2></strong></div>
+                <hr style="margin-left:20px">
+                    <div class="card-body">
+                        <h6>{{ job.func_name }}</h6>
+                        <p>{{ job.args }}</p>
+                        <p>Job Id : {{ job.id }}</p>
+                        <p>Job Status : {{ job.status }}</p>
+                        <p>Job result : {{ job.result }}</p>
+                    </div>
+                {% endfor %}
+                {% else %}
+                <p> No jobs queued </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

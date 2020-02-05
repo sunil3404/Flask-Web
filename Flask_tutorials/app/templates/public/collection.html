@@ -1,0 +1,58 @@
+{% extends "public/templates/public_template.html" %}
+
+{% block title %} Inventory {% endblock title %}
+
+
+{% block main %} 
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-8">
+                <h1> Inventory</h1>
+                <hr>
+                <form action= "{{ url_for('inventory_collection' ,collection='collection') }}" method='POST'>
+                    <div class = "container">
+                        <strong><label class="form-label"> Collection: </label></strong>
+                        <input class="form-control" name="collection" placeholder ="Enter collection name"> 
+                    </div>
+                    <br> 
+                    <div class = "container">
+                        <strong><label class="form-label"> Products: </label></strong>
+                        <input class="form-control" name="products" placeholder ="Enter product name"> 
+                    </div>
+                    <br>
+                    <div class = "container">
+                        <strong><label class="form-label">Quantity:</label></strong>
+                        <input class="form-control" name="quantity" placeholder ="Enter product quantity"> 
+                    </div>
+                    <br>
+                    <div class = "container">
+                        <button class="btn btn-primary">Update Inventory</button>  
+                    </div>
+                </form>
+                <br>
+                <br>
+                <h3> Current Inventory </h3>
+                <hr>
+                <br>
+                <div class="card">
+                    <div class='card-body'>
+                       <h3 class='card-title'> Inventory Details</h3>
+                       <hr>
+                       {% if collection %}
+                       {% for collection, member in collection.items() %}
+                       
+                       <h4>Collection Name : {{ collection }}</h4>
+                       <hr>
+                       {% for name, quantity in member.items() %}
+                       <p> {{ name }} : {{ quantity }}</p>
+                       {% endfor %}
+                       {% endfor %}
+                       {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

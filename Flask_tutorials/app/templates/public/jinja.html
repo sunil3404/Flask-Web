@@ -1,0 +1,83 @@
+{% extends '/public/templates/public_template.html' %}
+
+{% import 'macros/input_macros.html' as im %}
+
+{% block title %}Jinja Templating{% endblock %}
+
+{% block main %} 
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col">
+                <h1> Jinja Templating </h1>
+                <hr>
+                <br>
+                <h4>Looping Lists</h4>
+                <hr>
+                {% for lang in langs %}
+                    <ul>
+                        <li>{{ lang }} </li>
+                    </ul>
+                {% endfor %}
+                <br>
+                <h4>Looping with dictionary key and items</h4>
+                <hr>
+                {% for key, value in student_info.items() %}
+                    <ul>
+                        <li>{{ key }} : {{ value }} </li>
+                    </ul>
+                {% endfor %}
+                <br>
+                <h4>Looping with dictionary keys</h4>
+                <hr>
+                {% for key in student_info.keys() %}
+                    <ul>
+                        <li>{{ key }}</li>
+                    </ul>
+                {% endfor %}
+                <br>
+                <h4>Looping with dictionary values</h4>
+                <hr>
+                {% for value in student_info.values() %}
+                    <ul>
+                        <li>{{ value}}</li>
+                    </ul>
+                {% endfor %}
+                <br>
+                <h4>Display User Objects</h4>
+                <hr>
+                <p> {{ test_jinja.first_name }}</p> 
+                <p> {{ test_jinja.last_name }}</p> 
+                <p> {{ test_jinja.full_name() }}</p>
+                <p> {{ test_jinja.email}}</p> 
+
+                <br>
+                <h4>If Else Conditions</h4>
+                <hr>
+                {% if age <= 20 %}
+                    <p> You are under aged </p>
+                {% elif age > 20 and age < 30 %}
+                    <p> You are Eligible </p>
+                {% else %}
+                    <p> You are over aged
+                {% endif %}
+
+                <br>
+                <h4> Filters </h4>
+                <hr>
+                <p>{{ langs|join(', ') }}</p>
+                <br>
+
+                <h4>macros</h4>
+                <hr>
+                {{ im.input(label="UserName", name="username", type="text", placeholder="pleaser enter your username") }}
+                <br>
+                {{ im.input(label="Password", name="pasword", type="password", placeholder="pleaser enter your password") }}
+                <br>
+                <h4>Custom Filter</h4>
+                <hr>
+                <p> Current Date :  {{ date|clean_date }}</p>
+                <p> Current Time :  {{ date|clean_time }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
